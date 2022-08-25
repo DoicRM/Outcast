@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EntryGameScene : MonoBehaviour
+public class GameScene : MonoBehaviour
 {
     [HideInInspector] public TextController textController;
     [HideInInspector] public Text textDisplayer;
+    [SerializeField] private TextAsset inkJSON;
 
-    // Use this for initalization
     private void Awake()
     {
         textController = GetComponent<TextController>();
         textDisplayer = textController.GetComponent<Text>();
         textController.displayText.text = "";
+        GameObject.Find("Canvas").transform.Find("InventoryPanel").gameObject.SetActive(false);
+        GameObject.Find("Canvas").transform.Find("PlunderPanel").gameObject.SetActive(false);
     }
 
-    private void Start()
+    void Start()
     {
-        StartCoroutine(WelcomeCoroutine());
+        StoryManager.GetInstance().EnterCutsceneMode(inkJSON);
     }
 
-    IEnumerator WelcomeCoroutine()
+    void Update()
     {
-        yield return new WaitForSeconds(2f);
-        textController.displayText.text = "Radosław 'Doic' Michalak presents a text game titled";
-        yield return new WaitForSeconds(3f);
-        SceneLoader.LoadNextScene();
+        
     }
 }

@@ -5,15 +5,11 @@ using UnityEngine.UI;
 
 public class MainMenuScene : MonoBehaviour
 {
-    [HideInInspector] public MenuNavigation menuNavigation;
-    [HideInInspector] public TextController textController;
-    [HideInInspector] public Text textDisplayer;
-
     void Awake()
     {
-        textController = GetComponent<TextController>();
-        textDisplayer = textController.GetComponent<Text>();
-        menuNavigation = GetComponent<MenuNavigation>();
+        GameObject.Find("OptionsCanvas").transform.Find("OptionsPanel").gameObject.SetActive(false);
+        GameObject.Find("OptionsCanvas").transform.Find("ControlsPanel").gameObject.SetActive(false);
+        GameObject.Find("Prompt").GetComponent<Text>().text = "";
     }
 
     void Start()
