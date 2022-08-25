@@ -34,53 +34,63 @@ public enum Attitude
 
 public abstract class AI : ScriptableObject
 {
+    [Header("AI")]
     public string aiName;
     public int level;
     public int[] attribute = new int[(int)Attribute.MaxMana + 1];
-    [TextArea]
-    public string description;
+    [TextArea] public string description;
     public Guild guild;
     public Attitude attitude;
     public Weapon[] weapons = new Weapon[2];
-    public Inventory inventory = new Inventory();
+    // public Inventory inventory = new Inventory();
+    public List<Item> inventory = new List<Item>();
 
     public void AddItem(Item item)
     {
-        inventory.AddItem(item);
+        inventory.Add(item);
     }
 
     public void AddItems(Item item, int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            inventory.AddItem(item);
+            inventory.Add(item);
         }
     }
 
     public void RemoveItem(Item item)
     {
-        inventory.RemoveItem(item);
+        inventory.Remove(item);
     }
 
     public void RemoveItems(Item item, int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            inventory.RemoveItem(item);
+            inventory.Remove(item);
         }
     }
 
     public bool HasItem(Item item)
     {
-        return inventory.HasItem(item);
+        return inventory.Contains(item);
     }
 
     public bool HasItems(Item item, int amount)
     {
-        return inventory.HasItems(item, amount);
+        int ownedItems = 0;
+        for (int i = 0; i < amount; i++)
+        {
+            if (inventory.Contains(item))
+            {
+                ownedItems++;
+            }
+        }
+
+        return (ownedItems >= amount);
     }
 
-    public void EquipItem(Weapon weapon)
+    public string EquipItem(Weapon weapon)
     {
         if (HasItem(weapon))
         {
@@ -92,22 +102,31 @@ public abstract class AI : ScriptableObject
                         || weapon.weaponType == WeaponType.TwoHanded)
                     {
                         weapons[0] = weapon;
-                        return;
+                        return "";
                     }
                     weapons[1] = weapon;
                 }
             }
-
-            // if (IsPlayer())
-            // {
-            //     // You're short of {weapon.CalcAttributeDifference(this)} to use a {weapon.Name}.
-            // }
+            if (IsPlayer())
+            {
+                return $"You're short of {weapon.CalcAttributeDifference(this)} to use a {weapon.name}.";
+            }
         }
+        return "";
     }
 
-    public void ShowInventory()
+    public string ShowInventory()
     {
-        inventory.Show();
+        if (inventory.Count <= 0)
+        {
+            return "It's empty here.";
+        }
+        string str = "";
+        foreach (var item in inventory)
+        {
+            str += item.name + " x1\n";
+        }
+        return str;
     }
 
     public void ClearInventory()
@@ -136,5 +155,11 @@ public abstract class AI : ScriptableObject
     public string PrintAttitude()
     {
         return $"{name} is {attitude.ToString().ToLower()} now.";
+    }
+
+    public bool IsPlayer()
+    {
+        Player hero = GameObject.Find("GameController").GetComponent<PlayerController>().player;
+        return this == hero;
     }
 }

@@ -24,12 +24,12 @@ public class Menu : ScriptableObject
 
                 if (i == choice)
                 {
-                    textController.PrintTextWithSave(currentOption, Color.white);
+                    textController.displayText.text = currentOption;
                     // textDisplayer.color = Color.white;
                 }
                 else
                 {
-                    textController.PrintTextWithSave(currentOption, Color.grey);
+                    textController.displayText.text = currentOption;
                     // textDisplayer.color = Color.grey;
                 }
 

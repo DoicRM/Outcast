@@ -12,6 +12,7 @@ public enum MonsterType
 [CreateAssetMenu(fileName = "Monster", menuName = "Outcast/AI/Monster")]
 public class Monster : AI
 {
+    [Header("Monster")]
     public MonsterType type;
 
     void Reset()

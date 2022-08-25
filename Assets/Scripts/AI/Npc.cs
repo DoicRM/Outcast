@@ -11,6 +11,7 @@ public enum Gender
 [CreateAssetMenu(fileName = "Npc", menuName = "Outcast/AI/Npc")]
 public class Npc : AI
 {
+    [Header("NPC")]
     public int id;
     public Gender gender;
     public Armor armor;
@@ -22,12 +23,6 @@ public class Npc : AI
         {
             this.armor = armor;
         }
-    }
-
-    public bool IsPlayer()
-    {
-        // return this == Hero;
-        return true;
     }
 
     public string PrintInfo()
