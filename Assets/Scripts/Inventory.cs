@@ -66,17 +66,27 @@ public class Inventory : MonoBehaviour
         return (ownedItems >= amount);
     }
 
-    public void Show()
+    public string Show()
     {
+        // if (items.Count <= 0)
+        // {
+        //     return "It's empty here.";
+        // }
+        // string str = "";
+        // foreach (var item in items)
+        // {
+        //     str += item.PrintInfo() + "\n";
+        // }
+        // return str;
         if (items.Count <= 0)
         {
-            // It's empty here.
-            return;
+            return "It's empty here.";
         }
-
+        string str = "";
         foreach (var item in items)
         {
-            // item.PrintInfo();
+            str += item.name + "\n";
         }
+        return str;
     }
 }
