@@ -21,7 +21,9 @@ MonoBehaviour:
   weapons:
   - {fileID: 0}
   - {fileID: 0}
-  inventory: {fileID: 0}
+  inventory:
+  - {fileID: 11400000, guid: 2c08bfc7262c7cc49a7392b5080e9a62, type: 2}
+  - {fileID: 11400000, guid: 217bd54238650164db5ae7572a82d57b, type: 2}
   id: 0
   gender: 0
   armor: {fileID: 11400000, guid: 2e00e9b6357cf494b9255de5bfb0ae8d, type: 2}
