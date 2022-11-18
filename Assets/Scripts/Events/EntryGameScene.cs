@@ -8,7 +8,6 @@ public class EntryGameScene : MonoBehaviour
     [HideInInspector] public TextController textController;
     [HideInInspector] public Text textDisplayer;
 
-    // Use this for initalization
     private void Awake()
     {
         textController = GetComponent<TextController>();

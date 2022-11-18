@@ -105,8 +105,8 @@ public class StoryManager : MonoBehaviour
             switch (tagKey)
             {
                 case WAIT_TAG:
-                    float f = float.Parse(tagValue);
-                    StartCoroutine(Wait(f));
+                    int sec = int.Parse(tagValue);
+                    StartCoroutine(Wait(sec));
                     break;
                 case COLOR_TAG:
                     textDisplayer.color = ToColor(tagValue);
@@ -122,10 +122,10 @@ public class StoryManager : MonoBehaviour
         }
     }
 
-    IEnumerator Wait(float f)
+    public IEnumerator Wait(int sec)
     {
-        Debug.Log("Wait for " + f.ToString() + " sec");
-        yield return new WaitForSeconds(f);
+        Debug.Log("Wait for " + sec.ToString() + " sec");
+        yield return new WaitForSeconds(sec);
     }
 
     private void DisplayChoices()
